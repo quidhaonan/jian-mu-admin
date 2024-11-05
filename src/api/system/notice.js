@@ -1,11 +1,11 @@
 import request from '@/utils/request'
 
 // 查询公告列表
-export function listNotice(query) {
+export function listNotice(data) {
   return request({
     url: '/system/notice/list',
-    method: 'get',
-    params: query
+    method: 'post',
+    data: data
   })
 }
 
@@ -20,7 +20,7 @@ export function getNotice(noticeId) {
 // 新增公告
 export function addNotice(data) {
   return request({
-    url: '/system/notice',
+    url: '/system/notice/add',
     method: 'post',
     data: data
   })
@@ -29,16 +29,17 @@ export function addNotice(data) {
 // 修改公告
 export function updateNotice(data) {
   return request({
-    url: '/system/notice',
-    method: 'put',
+    url: '/system/notice/edit',
+    method: 'post',
     data: data
   })
 }
 
 // 删除公告
-export function delNotice(noticeId) {
+export function delNotice(data) {
   return request({
-    url: '/system/notice/' + noticeId,
-    method: 'delete'
+    url: '/system/notice/remove',
+    method: 'post',
+    data: data
   })
 }

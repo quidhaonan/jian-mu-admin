@@ -22,8 +22,8 @@
       <el-form-item label="创建时间" style="width: 308px">
         <el-date-picker
           v-model="dateRange"
-          value-format="YYYY-MM-DD"
-          type="daterange"
+          value-format="YYYY-MM-DD hh:mm:ss"
+          type="datetimerange"
           range-separator="-"
           start-placeholder="开始日期"
           end-placeholder="结束日期"
@@ -91,7 +91,7 @@
       <el-table-column type="selection" align="center" width="55"></el-table-column>
       <el-table-column label="序号" type="index" width="50" align="center">
         <template #default="scope">
-          <span>{{(queryParams.pageNum - 1) * queryParams.pageSize + scope.$index + 1}}</span>
+          <span>{{(queryParams.page - 1) * queryParams.size + scope.$index + 1}}</span>
         </template>
       </el-table-column>
       <el-table-column
@@ -137,8 +137,8 @@
     <pagination
       v-show="total>0"
       :total="total"
-      v-model:page="queryParams.pageNum"
-      v-model:limit="queryParams.pageSize"
+      v-model:page="queryParams.page"
+      v-model:limit="queryParams.size"
       @pagination="getList"
     />
     <!-- 预览界面 -->
@@ -182,8 +182,8 @@ const uniqueId = ref("");
 
 const data = reactive({
   queryParams: {
-    pageNum: 1,
-    pageSize: 10,
+    page: 1,
+    size: 10,
     tableName: undefined,
     tableComment: undefined
   },
@@ -201,7 +201,7 @@ onActivated(() => {
   const time = route.query.t;
   if (time != null && time != uniqueId.value) {
     uniqueId.value = time;
-    queryParams.value.pageNum = Number(route.query.pageNum);
+    queryParams.value.page = Number(route.query.page);
     dateRange.value = [];
     proxy.resetForm("queryForm");
     getList();
@@ -212,7 +212,7 @@ onActivated(() => {
 function getList() {
   loading.value = true;
   listTable(proxy.addDateRange(queryParams.value, dateRange.value)).then(response => {
-    tableList.value = response.rows;
+    tableList.value = response.records;
     total.value = response.total;
     loading.value = false;
   });
@@ -220,7 +220,7 @@ function getList() {
 
 /** 搜索按钮操作 */
 function handleQuery() {
-  queryParams.value.pageNum = 1;
+  queryParams.value.page = 1;
   getList();
 }
 
@@ -292,7 +292,7 @@ function handleSelectionChange(selection) {
 /** 修改按钮操作 */
 function handleEditTable(row) {
   const tableId = row.tableId || ids.value[0];
-  router.push({ path: "/tool/gen-edit/index/" + tableId, query: { pageNum: queryParams.value.pageNum } });
+  router.push({ path: "/tool/gen-edit/index/" + tableId, query: { page: queryParams.value.page } });
 }
 
 /** 删除按钮操作 */

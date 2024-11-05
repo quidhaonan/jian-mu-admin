@@ -171,7 +171,7 @@ const tableHeight = ref(window.innerHeight - 200);
 function getCacheNames() {
   loading.value = true;
   listCacheName().then(response => {
-    cacheNames.value = response.data;
+    cacheNames.value = response;
     loading.value = false;
   });
 }

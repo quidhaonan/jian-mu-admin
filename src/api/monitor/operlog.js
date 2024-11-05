@@ -1,19 +1,20 @@
 import request from '@/utils/request'
 
 // 查询操作日志列表
-export function list(query) {
+export function list(data) {
   return request({
     url: '/monitor/operlog/list',
-    method: 'get',
-    params: query
+    method: 'post',
+    data: data
   })
 }
 
 // 删除操作日志
-export function delOperlog(operId) {
+export function delOperlog(data) {
   return request({
-    url: '/monitor/operlog/' + operId,
-    method: 'delete'
+    url: '/monitor/operlog',
+    method: 'post',
+    data: data
   })
 }
 

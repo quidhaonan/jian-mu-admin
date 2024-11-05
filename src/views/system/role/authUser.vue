@@ -83,8 +83,8 @@
       <pagination
          v-show="total > 0"
          :total="total"
-         v-model:page="queryParams.pageNum"
-         v-model:limit="queryParams.pageSize"
+         v-model:page="queryParams.page"
+         v-model:limit="queryParams.size"
          @pagination="getList"
       />
       <select-user ref="selectRef" :roleId="queryParams.roleId" @ok="handleQuery" />
@@ -107,8 +107,8 @@ const total = ref(0);
 const userIds = ref([]);
 
 const queryParams = reactive({
-  pageNum: 1,
-  pageSize: 10,
+  page: 1,
+  size: 10,
   roleId: route.params.roleId,
   userName: undefined,
   phonenumber: undefined,
@@ -118,7 +118,7 @@ const queryParams = reactive({
 function getList() {
   loading.value = true;
   allocatedUserList(queryParams).then(response => {
-    userList.value = response.rows;
+    userList.value = response.records;
     total.value = response.total;
     loading.value = false;
   });
@@ -132,7 +132,7 @@ function handleClose() {
 
 /** 搜索按钮操作 */
 function handleQuery() {
-  queryParams.pageNum = 1;
+  queryParams.page = 1;
   getList();
 }
 

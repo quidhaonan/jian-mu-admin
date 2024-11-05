@@ -36,8 +36,8 @@
       <pagination
         v-show="total>0"
         :total="total"
-        v-model:page="queryParams.pageNum"
-        v-model:limit="queryParams.pageSize"
+        v-model:page="queryParams.page"
+        v-model:limit="queryParams.size"
         @pagination="getList"
       />
     </el-row>
@@ -60,8 +60,8 @@ const dbTableList = ref([]);
 const { proxy } = getCurrentInstance();
 
 const queryParams = reactive({
-  pageNum: 1,
-  pageSize: 10,
+  page: 1,
+  size: 10,
   tableName: undefined,
   tableComment: undefined
 });
@@ -94,7 +94,7 @@ function getList() {
 
 /** 搜索按钮操作 */
 function handleQuery() {
-  queryParams.pageNum = 1;
+  queryParams.page = 1;
   getList();
 }
 

@@ -43,8 +43,8 @@
          <el-form-item label="执行时间" style="width: 308px">
             <el-date-picker
                v-model="dateRange"
-               value-format="YYYY-MM-DD"
-               type="daterange"
+               value-format="YYYY-MM-DD hh:mm:ss"
+               type="datetimerange"
                range-separator="-"
                start-placeholder="开始日期"
                end-placeholder="结束日期"
@@ -127,8 +127,8 @@
       <pagination
          v-show="total > 0"
          :total="total"
-         v-model:page="queryParams.pageNum"
-         v-model:limit="queryParams.pageSize"
+         v-model:page="queryParams.page"
+         v-model:limit="queryParams.size"
          @pagination="getList"
       />
 
@@ -190,8 +190,8 @@ const route = useRoute();
 const data = reactive({
   form: {},
   queryParams: {
-    pageNum: 1,
-    pageSize: 10,
+    page: 1,
+    size: 10,
     dictName: undefined,
     dictType: undefined,
     status: undefined
@@ -204,7 +204,7 @@ const { queryParams, form, rules } = toRefs(data);
 function getList() {
   loading.value = true;
   listJobLog(proxy.addDateRange(queryParams.value, dateRange.value)).then(response => {
-    jobLogList.value = response.rows;
+    jobLogList.value = response.records;
     total.value = response.total;
     loading.value = false;
   });
@@ -218,7 +218,7 @@ function handleClose() {
 
 /** 搜索按钮操作 */
 function handleQuery() {
-  queryParams.value.pageNum = 1;
+  queryParams.value.page = 1;
   getList();
 }
 

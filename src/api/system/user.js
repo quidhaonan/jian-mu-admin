@@ -2,11 +2,11 @@ import request from '@/utils/request'
 import { parseStrEmpty } from "@/utils/ruoyi";
 
 // 查询用户列表
-export function listUser(query) {
+export function listUser(data) {
   return request({
     url: '/system/user/list',
-    method: 'get',
-    params: query
+    method: 'post',
+    data: data
   })
 }
 
@@ -21,7 +21,7 @@ export function getUser(userId) {
 // 新增用户
 export function addUser(data) {
   return request({
-    url: '/system/user',
+    url: '/system/user/add',
     method: 'post',
     data: data
   })
@@ -30,17 +30,18 @@ export function addUser(data) {
 // 修改用户
 export function updateUser(data) {
   return request({
-    url: '/system/user',
-    method: 'put',
+    url: '/system/user/edit',
+    method: 'post',
     data: data
   })
 }
 
 // 删除用户
-export function delUser(userId) {
+export function delUser(data) {
   return request({
-    url: '/system/user/' + userId,
-    method: 'delete'
+    url: '/system/user/remove',
+    method: 'post',
+    data: data
   })
 }
 
@@ -58,9 +59,9 @@ export function resetUserPwd(userId, password) {
 }
 
 // 用户状态修改
-export function changeUserStatus(userId, status) {
+export function changeUserStatus(id, status) {
   const data = {
-    userId,
+    id,
     status
   }
   return request({
@@ -81,8 +82,8 @@ export function getUserProfile() {
 // 修改用户个人信息
 export function updateUserProfile(data) {
   return request({
-    url: '/system/user/profile',
-    method: 'put',
+    url: '/system/user/profile/edit',
+    method: 'post',
     data: data
   })
 }
@@ -122,7 +123,7 @@ export function getAuthRole(userId) {
 export function updateAuthRole(data) {
   return request({
     url: '/system/user/authRole',
-    method: 'put',
+    method: 'post',
     params: data
   })
 }

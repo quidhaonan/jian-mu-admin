@@ -176,7 +176,7 @@ const { queryParams, form, rules } = toRefs(data);
 function getList() {
   loading.value = true;
   listDept(queryParams.value).then(response => {
-    deptList.value = proxy.handleTree(response.data, "deptId");
+    deptList.value = proxy.handleTree(response, "deptId");
     loading.value = false;
   });
 }
@@ -216,10 +216,10 @@ function resetQuery() {
 /** 新增按钮操作 */
 function handleAdd(row) {
   reset();
-  listDept().then(response => {
-    deptOptions.value = proxy.handleTree(response.data, "deptId");
+  listDept({}).then(response => {
+    deptOptions.value = proxy.handleTree(response, "deptId");
   });
-  if (row != undefined) {
+  if (row !== undefined) {
     form.value.parentId = row.deptId;
   }
   open.value = true;

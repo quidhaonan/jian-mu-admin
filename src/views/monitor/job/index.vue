@@ -132,8 +132,8 @@
       <pagination
          v-show="total > 0"
          :total="total"
-         v-model:page="queryParams.pageNum"
-         v-model:limit="queryParams.pageSize"
+         v-model:page="queryParams.page"
+         v-model:limit="queryParams.size"
          @pagination="getList"
       />
 
@@ -307,8 +307,8 @@ const expression = ref("");
 const data = reactive({
   form: {},
   queryParams: {
-    pageNum: 1,
-    pageSize: 10,
+    page: 1,
+    size: 10,
     jobName: undefined,
     jobGroup: undefined,
     status: undefined
@@ -326,7 +326,7 @@ const { queryParams, form, rules } = toRefs(data);
 function getList() {
   loading.value = true;
   listJob(queryParams.value).then(response => {
-    jobList.value = response.rows;
+    jobList.value = response.records;
     total.value = response.total;
     loading.value = false;
   });
@@ -360,7 +360,7 @@ function reset() {
 
 /** 搜索按钮操作 */
 function handleQuery() {
-  queryParams.value.pageNum = 1;
+  queryParams.value.page = 1;
   getList();
 }
 

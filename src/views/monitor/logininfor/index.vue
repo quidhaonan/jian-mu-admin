@@ -1,9 +1,9 @@
 <template>
    <div class="app-container">
       <el-form :model="queryParams" ref="queryRef" :inline="true" v-show="showSearch" label-width="68px">
-         <el-form-item label="登录地址" prop="ipaddr">
+         <el-form-item label="登录地址" prop="loginLocation">
             <el-input
-               v-model="queryParams.ipaddr"
+               v-model="queryParams.loginLocation"
                placeholder="请输入登录地址"
                clearable
                style="width: 240px;"
@@ -38,7 +38,7 @@
             <el-date-picker
                v-model="dateRange"
                value-format="YYYY-MM-DD HH:mm:ss"
-               type="daterange"
+               type="datetimerange"
                range-separator="-"
                start-placeholder="开始日期"
                end-placeholder="结束日期"
@@ -95,12 +95,12 @@
 
       <el-table ref="logininforRef" v-loading="loading" :data="logininforList" @selection-change="handleSelectionChange" :default-sort="defaultSort" @sort-change="handleSortChange">
          <el-table-column type="selection" width="55" align="center" />
-         <el-table-column label="访问编号" align="center" prop="infoId" />
+         <el-table-column label="访问编号" align="center" prop="id" />
          <el-table-column label="用户名称" align="center" prop="userName" :show-overflow-tooltip="true" sortable="custom" :sort-orders="['descending', 'ascending']" />
-         <el-table-column label="地址" align="center" prop="ipaddr" :show-overflow-tooltip="true" />
+         <el-table-column label="地址" align="center" prop="loginIp" :show-overflow-tooltip="true" />
          <el-table-column label="登录地点" align="center" prop="loginLocation" :show-overflow-tooltip="true" />
          <el-table-column label="操作系统" align="center" prop="os" :show-overflow-tooltip="true" />
-         <el-table-column label="浏览器" align="center" prop="browser" :show-overflow-tooltip="true" />
+         <el-table-column label="浏览器" align="center" prop="browserType" :show-overflow-tooltip="true" />
          <el-table-column label="登录状态" align="center" prop="status">
             <template #default="scope">
                <dict-tag :options="sys_common_status" :value="scope.row.status" />
@@ -117,8 +117,8 @@
       <pagination
          v-show="total > 0"
          :total="total"
-         v-model:page="queryParams.pageNum"
-         v-model:limit="queryParams.pageSize"
+         v-model:page="queryParams.page"
+         v-model:limit="queryParams.size"
          @pagination="getList"
       />
    </div>
@@ -143,9 +143,9 @@ const defaultSort = ref({ prop: "loginTime", order: "descending" });
 
 // 查询参数
 const queryParams = ref({
-  pageNum: 1,
-  pageSize: 10,
-  ipaddr: undefined,
+  page: 1,
+  size: 10,
+  loginLocation: undefined,
   userName: undefined,
   status: undefined,
   orderByColumn: undefined,
@@ -156,7 +156,7 @@ const queryParams = ref({
 function getList() {
   loading.value = true;
   list(proxy.addDateRange(queryParams.value, dateRange.value)).then(response => {
-    logininforList.value = response.rows;
+    logininforList.value = response.records;
     total.value = response.total;
     loading.value = false;
   });
@@ -164,7 +164,7 @@ function getList() {
 
 /** 搜索按钮操作 */
 function handleQuery() {
-  queryParams.value.pageNum = 1;
+  queryParams.value.page = 1;
   getList();
 }
 
@@ -172,13 +172,13 @@ function handleQuery() {
 function resetQuery() {
   dateRange.value = [];
   proxy.resetForm("queryRef");
-  queryParams.value.pageNum = 1;
+  queryParams.value.page = 1;
   proxy.$refs["logininforRef"].sort(defaultSort.value.prop, defaultSort.value.order);
 }
 
 /** 多选框选中数据 */
 function handleSelectionChange(selection) {
-  ids.value = selection.map(item => item.infoId);
+  ids.value = selection.map(item => item.id);
   multiple.value = !selection.length;
   single.value = selection.length != 1;
   selectName.value = selection.map(item => item.userName);
@@ -193,9 +193,12 @@ function handleSortChange(column, prop, order) {
 
 /** 删除按钮操作 */
 function handleDelete(row) {
-  const infoIds = row.infoId || ids.value;
-  proxy.$modal.confirm('是否确认删除访问编号为"' + infoIds + '"的数据项?').then(function () {
-    return delLogininfor(infoIds);
+  const idsData = row.id || ids.value;
+  proxy.$modal.confirm('是否确认删除访问编号为"' + idsData + '"的数据项?').then(function () {
+    const data={
+      ids:idsData
+    }
+    return delLogininfor(data);
   }).then(() => {
     getList();
     proxy.$modal.msgSuccess("删除成功");

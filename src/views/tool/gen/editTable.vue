@@ -178,7 +178,7 @@ function getFormPromise(form) {
 }
 
 function close() {
-  const obj = { path: "/tool/gen", query: { t: Date.now(), pageNum: route.query.pageNum } };
+  const obj = { path: "/tool/gen", query: { t: Date.now(), page: route.query.page } };
   proxy.$tab.closeOpenPage(obj);
 }
 

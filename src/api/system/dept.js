@@ -1,11 +1,11 @@
 import request from '@/utils/request'
 
 // 查询部门列表
-export function listDept(query) {
+export function listDept(data) {
   return request({
     url: '/system/dept/list',
-    method: 'get',
-    params: query
+    method: 'post',
+    data: data
   })
 }
 
@@ -28,7 +28,7 @@ export function getDept(deptId) {
 // 新增部门
 export function addDept(data) {
   return request({
-    url: '/system/dept',
+    url: '/system/dept/add',
     method: 'post',
     data: data
   })
@@ -37,8 +37,8 @@ export function addDept(data) {
 // 修改部门
 export function updateDept(data) {
   return request({
-    url: '/system/dept',
-    method: 'put',
+    url: '/system/dept/edit',
+    method: 'post',
     data: data
   })
 }

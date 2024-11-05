@@ -325,7 +325,7 @@ const { queryParams, form, rules } = toRefs(data);
 function getList() {
   loading.value = true;
   listMenu(queryParams.value).then(response => {
-    menuList.value = proxy.handleTree(response.data, "menuId");
+    menuList.value = proxy.handleTree(response, "menuId");
     loading.value = false;
   });
 }
@@ -333,9 +333,9 @@ function getList() {
 /** 查询菜单下拉树结构 */
 function getTreeselect() {
   menuOptions.value = [];
-  listMenu().then(response => {
+  listMenu({}).then(response => {
     const menu = { menuId: 0, menuName: "主类目", children: [] };
-    menu.children = proxy.handleTree(response.data, "menuId");
+    menu.children = proxy.handleTree(response, "menuId");
     menuOptions.value.push(menu);
   });
 }
