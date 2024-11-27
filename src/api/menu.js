@@ -3,7 +3,7 @@ import request from '@/utils/request'
 // 获取路由
 export const getRouters = () => {
   return request({
-    url: '/auth/getRouters',
+    url: '/admin/auth/getRouters',
     method: 'get'
   })
 }

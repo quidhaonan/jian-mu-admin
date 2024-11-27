@@ -3,7 +3,7 @@ import request from '@/utils/request'
 // 查询操作日志列表
 export function list(data) {
   return request({
-    url: '/monitor/operlog/list',
+    url: '/admin/monitor/operlog/list',
     method: 'post',
     data: data
   })
@@ -12,7 +12,7 @@ export function list(data) {
 // 删除操作日志
 export function delOperlog(data) {
   return request({
-    url: '/monitor/operlog',
+    url: '/admin/monitor/operlog',
     method: 'post',
     data: data
   })
@@ -21,7 +21,7 @@ export function delOperlog(data) {
 // 清空操作日志
 export function cleanOperlog() {
   return request({
-    url: '/monitor/operlog/clean',
+    url: '/admin/monitor/operlog/clean',
     method: 'delete'
   })
 }

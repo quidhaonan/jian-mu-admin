@@ -3,7 +3,7 @@ import request from '@/utils/request'
 // 查询部门列表
 export function listDept(data) {
   return request({
-    url: '/system/dept/list',
+    url: '/admin/system/dept/list',
     method: 'post',
     data: data
   })
@@ -12,7 +12,7 @@ export function listDept(data) {
 // 查询部门列表（排除节点）
 export function listDeptExcludeChild(deptId) {
   return request({
-    url: '/system/dept/list/exclude/' + deptId,
+    url: '/admin/system/dept/list/exclude/' + deptId,
     method: 'get'
   })
 }
@@ -20,7 +20,7 @@ export function listDeptExcludeChild(deptId) {
 // 查询部门详细
 export function getDept(deptId) {
   return request({
-    url: '/system/dept/' + deptId,
+    url: '/admin/system/dept/' + deptId,
     method: 'get'
   })
 }
@@ -28,7 +28,7 @@ export function getDept(deptId) {
 // 新增部门
 export function addDept(data) {
   return request({
-    url: '/system/dept/add',
+    url: '/admin/system/dept/add',
     method: 'post',
     data: data
   })
@@ -37,7 +37,7 @@ export function addDept(data) {
 // 修改部门
 export function updateDept(data) {
   return request({
-    url: '/system/dept/edit',
+    url: '/admin/system/dept/edit',
     method: 'post',
     data: data
   })
@@ -46,7 +46,7 @@ export function updateDept(data) {
 // 删除部门
 export function delDept(deptId) {
   return request({
-    url: '/system/dept/' + deptId,
+    url: '/admin/system/dept/' + deptId,
     method: 'delete'
   })
 }

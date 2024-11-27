@@ -4,7 +4,7 @@ import { parseStrEmpty } from "@/utils/ruoyi";
 // 查询用户列表
 export function listUser(data) {
   return request({
-    url: '/system/user/list',
+    url: '/admin/system/user/list',
     method: 'post',
     data: data
   })
@@ -13,7 +13,7 @@ export function listUser(data) {
 // 查询用户详细
 export function getUser(userId) {
   return request({
-    url: '/system/user/' + parseStrEmpty(userId),
+    url: '/admin/system/user/' + parseStrEmpty(userId),
     method: 'get'
   })
 }
@@ -21,7 +21,7 @@ export function getUser(userId) {
 // 新增用户
 export function addUser(data) {
   return request({
-    url: '/system/user/add',
+    url: '/admin/system/user/add',
     method: 'post',
     data: data
   })
@@ -30,7 +30,7 @@ export function addUser(data) {
 // 修改用户
 export function updateUser(data) {
   return request({
-    url: '/system/user/edit',
+    url: '/admin/system/user/edit',
     method: 'post',
     data: data
   })
@@ -39,7 +39,7 @@ export function updateUser(data) {
 // 删除用户
 export function delUser(data) {
   return request({
-    url: '/system/user/remove',
+    url: '/admin/system/user/remove',
     method: 'post',
     data: data
   })
@@ -52,7 +52,7 @@ export function resetUserPwd(userId, password) {
     password
   }
   return request({
-    url: '/system/user/resetPwd',
+    url: '/admin/system/user/resetPwd',
     method: 'put',
     data: data
   })
@@ -65,7 +65,7 @@ export function changeUserStatus(id, status) {
     status
   }
   return request({
-    url: '/system/user/changeStatus',
+    url: '/admin/system/user/changeStatus',
     method: 'put',
     data: data
   })
@@ -74,7 +74,7 @@ export function changeUserStatus(id, status) {
 // 查询用户个人信息
 export function getUserProfile() {
   return request({
-    url: '/system/user/profile',
+    url: '/admin/system/user/profile',
     method: 'get'
   })
 }
@@ -82,7 +82,7 @@ export function getUserProfile() {
 // 修改用户个人信息
 export function updateUserProfile(data) {
   return request({
-    url: '/system/user/profile/edit',
+    url: '/admin/system/user/profile/edit',
     method: 'post',
     data: data
   })
@@ -95,7 +95,7 @@ export function updateUserPwd(oldPassword, newPassword) {
     newPassword
   }
   return request({
-    url: '/system/user/profile/updatePwd',
+    url: '/admin/system/user/profile/updatePwd',
     method: 'put',
     params: data
   })
@@ -104,7 +104,7 @@ export function updateUserPwd(oldPassword, newPassword) {
 // 用户头像上传
 export function uploadAvatar(data) {
   return request({
-    url: '/system/user/profile/avatar',
+    url: '/admin/system/user/profile/avatar',
     method: 'post',
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     data: data
@@ -114,7 +114,7 @@ export function uploadAvatar(data) {
 // 查询授权角色
 export function getAuthRole(userId) {
   return request({
-    url: '/system/user/authRole/' + userId,
+    url: '/admin/system/user/authRole/' + userId,
     method: 'get'
   })
 }
@@ -122,7 +122,7 @@ export function getAuthRole(userId) {
 // 保存授权角色
 export function updateAuthRole(data) {
   return request({
-    url: '/system/user/authRole',
+    url: '/admin/system/user/authRole',
     method: 'post',
     params: data
   })
@@ -131,7 +131,7 @@ export function updateAuthRole(data) {
 // 查询部门下拉树结构
 export function deptTreeSelect() {
   return request({
-    url: '/system/user/deptTree',
+    url: '/admin/system/user/deptTree',
     method: 'get'
   })
 }
